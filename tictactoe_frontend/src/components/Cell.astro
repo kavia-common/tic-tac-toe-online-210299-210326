@@ -1,0 +1,17 @@
+---
+export interface Props {
+  index: number;
+  value: 'X' | 'O' | null;
+  disabled?: boolean;
+  isWin?: boolean;
+}
+const { index, value, disabled = false, isWin = false } = Astro.props;
+---
+<button
+  class={`cell ${value ?? ''} ${isWin ? 'win' : ''} ${disabled ? 'disabled' : ''}`}
+  aria-label={`Cell ${index + 1}${value ? ', occupied by ' + value : ', empty'}`}
+  aria-disabled={disabled ? 'true' : 'false'}
+  data-index={index}
+>
+  {value ?? ''}
+</button>

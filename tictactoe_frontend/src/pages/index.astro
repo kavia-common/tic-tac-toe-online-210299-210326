@@ -1,11 +1,43 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Board from '../components/Board.astro';
+import ScoreBoard from '../components/ScoreBoard.astro';
+import Controls from '../components/Controls.astro';
+import '../styles/theme.css';
 ---
 
 <Layout>
-	<Welcome />
+  <main class="container">
+    <section class="card" aria-label="Tic Tac Toe Game">
+      <header class="header">
+        <div class="title">
+          <div class="badge" aria-hidden="true">v1</div>
+          <h1>Ocean Tic Tac Toe</h1>
+        </div>
+        <div class="status" aria-live="polite" style="text-align:right;">Play vs a friend or the CPU</div>
+      </header>
+      <p class="subtitle">Modern UI with local scoreboard and basic audit trail scaffolding.</p>
+
+      <div class="grid-layout">
+        <ScoreBoard />
+        <Board initialVsComputer={true} />
+        <Controls initialVsComputer={true} client:load />
+      </div>
+    </section>
+  </main>
+  <script type="module">
+    import { attachScoreboard } from '../lib/scoreboardClient';
+    import { attachBoard } from '../lib/boardClient';
+    import { attachControls } from '../lib/controlsClient';
+    attachScoreboard();
+    const init = () => {
+      attachBoard(true);
+      attachControls(true);
+    };
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  </script>
 </Layout>

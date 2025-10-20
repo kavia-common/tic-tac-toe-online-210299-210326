@@ -1,47 +1,68 @@
-# Astro Starter Kit: Minimal
+# Ocean Tic Tac Toe (Astro)
 
-```sh
-npm create astro@latest -- --template minimal
-```
+Modern, accessible Tic Tac Toe built with Astro. Features:
+- 3x3 board with turn logic, win/draw detection, and winning line highlight
+- Play modes: Player vs Player and vs Computer (simple AI: center > win/block > random)
+- Local scoreboard persisted in localStorage
+- Ocean Professional theme styling (blue & amber accents)
+- Audit trail scaffold (frontend-only) capturing MOVE, RESET, MODE_CHANGE, ERROR with ISO timestamps and pseudo user id
+- Basic validation/error handling in logic functions
+- Unit test placeholders via Vitest
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/minimal)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/minimal)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/minimal/devcontainer.json)
+## Getting Started
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+1) Install dependencies
+   npm install
 
-## 🚀 Project Structure
+2) Run dev server (port 3000)
+   npm run dev
 
-Inside of your Astro project, you'll see the following folders and files:
+3) Build for production
+   npm run build
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+4) Preview production build
+   npm run preview
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+5) Run tests (unit test for game logic)
+   npm run test
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+## Project Structure
 
-Any static assets, like images, can be placed in the `public/` directory.
+- src/pages/index.astro: Top-level page composing the app
+- src/components:
+  - Board.astro: Interactive board (Astro island)
+  - Cell.astro: Square cell component
+  - ScoreBoard.astro: Local scoreboard view
+  - Controls.astro: Mode toggle and reset control
+- src/lib:
+  - game.ts: Pure game logic, validation, simple AI
+  - storage.ts: localStorage utilities for scores and pseudo user id
+  - audit.ts: audit trail scaffold (local)
+- src/styles/theme.css: Ocean Professional theme
+- src/tests/game.test.ts: Vitest unit tests for game logic
 
-## 🧞 Commands
+## Accessibility
 
-All commands are run from the root of the project, from a terminal:
+- Keyboard support: Tab to focus cells, Enter/Space to move
+- ARIA labels on controls and dynamic status regions
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+## GxP and Compliance Notes
 
-## 👀 Want to learn more?
+This repository includes a lightweight, frontend-only audit trail scaffold:
+- Events: MOVE, RESET, MODE_CHANGE, ERROR
+- Metadata: ISO timestamp, pseudo user id, payload snapshots (before/after where applicable)
+- Storage: localStorage (best-effort, not validated/persistent beyond browser storage guarantees)
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Important:
+- This is not a replacement for a validated, server-side audit trail.
+- No electronic signatures or role-based access are implemented (no backend).
+- The audit scaffold is for demonstration and traceability during UI interactions.
+
+## Known Limitations
+
+- No backend or multi-user sync; gameplay and audit events occur only in the browser context.
+- Scores and audit events are not encrypted at rest in localStorage.
+
+## License
+
+MIT

@@ -1,0 +1,26 @@
+---
+import type { GameState } from '../lib/game';
+import { createGameState, makeMove, computeAiMove } from '../lib/game';
+import { logEvent } from '../lib/audit';
+import { getScores, setScores } from '../lib/storage';
+import Cell from './Cell.astro';
+
+export interface Props {
+  initialVsComputer?: boolean;
+}
+
+const { initialVsComputer = false } = Astro.props;
+---
+
+<div class="center-col">
+  <div id="status" class="status" aria-live="polite"></div>
+  <div id="board" class="board" role="grid" aria-label="Tic Tac Toe Board">
+    <!-- Cells rendered by client script for reactivity -->
+  </div>
+  <div class="controls">
+    <button id="reset" class="btn btn-warning" aria-label="Reset game">Reset</button>
+  </div>
+  <div class="footer-note">Tip: Use Tab/Enter to play with keyboard.</div>
+</div>
+
+<!-- client script moved to page-level attach via boardClient.ts -->

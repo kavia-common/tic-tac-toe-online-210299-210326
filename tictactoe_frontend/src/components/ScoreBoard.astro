@@ -1,0 +1,21 @@
+---
+import { getScores } from '../lib/storage';
+const initial = getScores();
+---
+<div class="panel">
+  <h2>Scoreboard</h2>
+  <div id="scoreboard" class="scoreboard" aria-live="polite">
+    <div class="score" aria-label="X wins">
+      <span class="label">X Wins</span>
+      <span id="score-x" class="value">{initial.x}</span>
+    </div>
+    <div class="score" aria-label="Draws">
+      <span class="label">Draws</span>
+      <span id="score-draw" class="value">{initial.draw}</span>
+    </div>
+    <div class="score" aria-label="O wins">
+      <span class="label">O Wins</span>
+      <span id="score-o" class="value">{initial.o}</span>
+    </div>
+  </div>
+</div>

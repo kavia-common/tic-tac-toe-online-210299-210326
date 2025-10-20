@@ -9,6 +9,11 @@ export default [
   // TypeScript support
   ...tseslint.configs.recommended,
 
+  // Ignore generated Astro types
+  {
+    ignores: ['.astro/**', 'dist/**']
+  },
+
   {
     files: ['**/*.ts', '**/*.tsx'],
     languageOptions: {
@@ -18,15 +23,21 @@ export default [
         ecmaVersion: 2022,
         sourceType: 'module',
       },
+      globals: {
+        ...globals.node,
+        ...globals.browser,
+      },
     },
     rules: {
       // Example custom rules for TS
       '@typescript-eslint/no-unused-vars': ['warn'],
       '@typescript-eslint/explicit-function-return-type': 'off',
+      '@typescript-eslint/triple-slash-reference': 'off',
+      '@typescript-eslint/no-explicit-any': ['error'],
     },
   },
 
-  // JS files config (same as before)
+  // JS files config
   {
     files: ['**/*.js', '**/*.jsx'],
     languageOptions: {

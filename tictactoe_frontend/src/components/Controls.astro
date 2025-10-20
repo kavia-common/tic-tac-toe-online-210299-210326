@@ -1,0 +1,23 @@
+---
+export interface Props {
+  initialVsComputer?: boolean;
+}
+const { initialVsComputer = false } = Astro.props;
+---
+<div class="panel">
+  <h2>Controls</h2>
+  <div class="controls" style="justify-content: space-between;">
+    <div class="switch" aria-label="Toggle mode: Player vs Player or vs Computer">
+      <label style="display:flex; align-items:center; gap:8px;">
+        <span style="font-size: 12px; color: var(--ocean-muted);">PvP</span>
+        <input id="mode" type="checkbox" aria-label="Play vs Computer" />
+        <span class="knob" aria-hidden="true"><span class="thumb"></span></span>
+        <span style="font-size: 12px; color: var(--ocean-muted);">CPU</span>
+      </label>
+    </div>
+    <button id="reset-global" class="btn" aria-label="Reset game">Reset</button>
+  </div>
+  <p class="footer-note">Mode switch resets the current game.</p>
+</div>
+
+<!-- client logic moved to page-level script via controlsClient.ts -->
